@@ -1,0 +1,3 @@
+/home/jane/CLionProjects/TDMATRIX/build/CMakeFiles/TDMATRIX.dir
+/home/jane/CLionProjects/TDMATRIX/build/CMakeFiles/edit_cache.dir
+/home/jane/CLionProjects/TDMATRIX/build/CMakeFiles/rebuild_cache.dir

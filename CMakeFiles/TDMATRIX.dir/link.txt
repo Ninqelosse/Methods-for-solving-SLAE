@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/TDMATRIX.dir/src/test.cpp.o -o TDMATRIX  /usr/local/lib/libgtest.a -lpthread 

@@ -1,0 +1,3 @@
+/home/jane/CLionProjects/Methods-for-solving-SLAE/TDMATRIX/CMakeFiles/TDMATRIX.dir
+/home/jane/CLionProjects/Methods-for-solving-SLAE/TDMATRIX/CMakeFiles/edit_cache.dir
+/home/jane/CLionProjects/Methods-for-solving-SLAE/TDMATRIX/CMakeFiles/rebuild_cache.dir
