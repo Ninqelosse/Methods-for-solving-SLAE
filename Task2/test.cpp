@@ -44,55 +44,20 @@ std::vector<T> generateVector(size_t length,  size_t nonZeroCount) {
     return vec;
 }
 
-TEST(MatrixMultiplicationTest, CompareDenseAndCSR5nonZero) {
+TEST(MatrixMultiplicationTest, CompareDenseAndCSR5_5) {
     size_t rows = 5;
     size_t cols = 5;
-    std::vector<double> vec = {1.0, 1.0, 1.0, 1.0,1.0};
-
-    for (size_t nonZeros : {1,3,7, 10, 15}) {
-        // Генерация матриц
-        Matrix<double> denseMatrix = generateDenseMatrix(rows, cols);
-        CSRMatrix<double> csrMatrix = generateCSRMatrix(rows, cols, nonZeros);
-        //denseMatrix.print();
-        //csrMatrix.print();
-        // Генерация вектора
-        std::vector<double> vec = generateVector(cols, nonZeros);
-        /*for (size_t i = 0; i < cols; ++i) {
-            vec[i] = static_cast<double>(rand()) / RAND_MAX; // Заполнение случайными числами
-        }*/
-        print(vec);
-
-        // Умножение плотной матрицы на вектор
-        auto startDense = std::chrono::high_resolution_clock::now();
-        auto denseResult = denseMatrix * vec; // Предполагается, что у вас есть перегруженный оператор *
-        auto endDense = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> durationDense = endDense - startDense;
-
-        // Умножение CSR-матрицы на вектор
-        auto startCSR = std::chrono::high_resolution_clock::now();
-        auto csrResult = csrMatrix * vec;
-        auto endCSR = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> durationCSR = endCSR - startCSR;
-
-        // Вывод результатов
-        std::cout << "Non-zeros: " << nonZeros << ", Dense time: " << durationDense.count() << "s, CSR time: " << durationCSR.count() << "s" << std::endl;
-    }
-}
-TEST(MatrixMultiplicationTest, CompareDenseAndCSR4nonZero) {
-    size_t rows = 5;
-    size_t cols = 5;
-    std::vector<double> vec = {1.0, 1.0, 1.0, 1.0,0.0};
-
-    for (size_t nonZeros : {1,3,7, 10, 15}) {
-        // Генерация матриц
-        Matrix<double> denseMatrix = generateDenseMatrix(rows, cols);
-        CSRMatrix<double> csrMatrix = generateCSRMatrix(rows, cols, nonZeros);
+    Matrix<double> denseMatrix = generateDenseMatrix(rows, cols);
+    CSRMatrix<double> csrMatrix = generateCSRMatrix(rows, cols, 12);
+    
+    for (size_t nonZeros : {1,2, 3 , 4, 5}) {
         
-        print(vec);
+        std::vector<double> vec = generateVector<double>(cols, nonZeros);
+        //print(vec);
 
         // Умножение плотной матрицы на вектор
         auto startDense = std::chrono::high_resolution_clock::now();
-        auto denseResult = denseMatrix * vec; // Предполагается, что у вас есть перегруженный оператор *
+        auto denseResult = denseMatrix * vec; 
         auto endDense = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> durationDense = endDense - startDense;
 
@@ -106,6 +71,88 @@ TEST(MatrixMultiplicationTest, CompareDenseAndCSR4nonZero) {
         std::cout << "Non-zeros: " << nonZeros << ", Dense time: " << durationDense.count() << "s, CSR time: " << durationCSR.count() << "s" << std::endl;
     }
 }
+TEST(MatrixMultiplicationTest, CompareDenseAndCSR25_25) {
+    size_t rows = 25;
+    size_t cols = 25;
+    Matrix<double> denseMatrix = generateDenseMatrix(rows, cols);
+    CSRMatrix<double> csrMatrix = generateCSRMatrix(rows, cols, 312);
+    
+    for (size_t nonZeros : {1, 5, 7, 10, 15, 20, 24}) {
+        
+        std::vector<double> vec = generateVector<double>(cols, nonZeros);
+        //print(vec);
+
+        // Умножение плотной матрицы на вектор
+        auto startDense = std::chrono::high_resolution_clock::now();
+        auto denseResult = denseMatrix * vec; 
+        auto endDense = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> durationDense = endDense - startDense;
+
+        // Умножение CSR-матрицы на вектор
+        auto startCSR = std::chrono::high_resolution_clock::now();
+        auto csrResult = csrMatrix * vec;
+        auto endCSR = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> durationCSR = endCSR - startCSR;
+
+        // Вывод результатов
+        std::cout << "Non-zeros: " << nonZeros << ", Dense time: " << durationDense.count() << "s, CSR time: " << durationCSR.count() << "s" << std::endl;
+    }
+}
+TEST(MatrixMultiplicationTest, CompareDenseAndCSR100_100) {
+    size_t rows = 100;
+    size_t cols = 100;
+    Matrix<double> denseMatrix = generateDenseMatrix(rows, cols);
+    CSRMatrix<double> csrMatrix = generateCSRMatrix(rows, cols, 5000);
+    
+    for (size_t nonZeros : {10, 20, 40, 60, 80, 99}) {
+        
+        std::vector<double> vec = generateVector<double>(cols, nonZeros);
+        //print(vec);
+
+        // Умножение плотной матрицы на вектор
+        auto startDense = std::chrono::high_resolution_clock::now();
+        auto denseResult = denseMatrix * vec; 
+        auto endDense = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> durationDense = endDense - startDense;
+
+        // Умножение CSR-матрицы на вектор
+        auto startCSR = std::chrono::high_resolution_clock::now();
+        auto csrResult = csrMatrix * vec;
+        auto endCSR = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> durationCSR = endCSR - startCSR;
+
+        // Вывод результатов
+        std::cout << "Non-zeros: " << nonZeros << ", Dense time: " << durationDense.count() << "s, CSR time: " << durationCSR.count() << "s" << std::endl;
+    }
+}
+TEST(MatrixMultiplicationTest, CompareDenseAndCSR1000_1000) {
+    size_t rows = 1000;
+    size_t cols = 1000;
+    Matrix<double> denseMatrix = generateDenseMatrix(rows, cols);
+    CSRMatrix<double> csrMatrix = generateCSRMatrix(rows, cols, 500000);
+    
+    for (size_t nonZeros : {100, 200, 500, 700, 999}) {
+        
+        std::vector<double> vec = generateVector<double>(cols, nonZeros);
+        //print(vec);
+
+        // Умножение плотной матрицы на вектор
+        auto startDense = std::chrono::high_resolution_clock::now();
+        auto denseResult = denseMatrix * vec; 
+        auto endDense = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> durationDense = endDense - startDense;
+
+        // Умножение CSR-матрицы на вектор
+        auto startCSR = std::chrono::high_resolution_clock::now();
+        auto csrResult = csrMatrix * vec;
+        auto endCSR = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> durationCSR = endCSR - startCSR;
+
+        // Вывод результатов
+        std::cout << "Non-zeros: " << nonZeros << ", Dense time: " << durationDense.count() << "s, CSR time: " << durationCSR.count() << "s" << std::endl;
+    }
+}
+
 // Тест для сравнения скорости умножения
 TEST(MatrixMultiplicationTest, CompareDenseAndCSR) {
     size_t rows = 1000;
